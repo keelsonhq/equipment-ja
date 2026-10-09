@@ -1,0 +1,147 @@
+@import 'tailwindcss';
+
+@theme {
+	/* Spine colour (accent). Changing these 3 lines recolours the whole app. */
+	--color-accent: #166534; /* ledger green, 7.0:1 with white text */
+	--color-accent-strong: #14532d; /* hover / active */
+	--color-accent-soft: #dcfce7; /* selected rows, soft emphasis */
+
+	/* Paper and ink (shared by the template family; do not change). */
+	--color-paper: #f7f5f0;
+	--color-surface: #ffffff;
+	--color-ink: #1c1917;
+	--color-ink-muted: #57534e;
+	--color-ink-faint: #78716c;
+	--color-rule: #e7e5e4;
+	--color-rule-strong: #d6d3d1;
+
+	/* Seal red: stamps only, independent of the accent. */
+	--color-seal: #b91c1c;
+	--color-seal-soft: #fef2f2;
+
+	/* Typefaces (DESIGN.md §6; loaded in src/app.html). */
+	--font-sans: 'IBM Plex Sans JP', 'Hiragino Sans', 'Yu Gothic UI', sans-serif;
+	--font-mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+}
+
+/*
+ * List density (DESIGN.md §2, §6, §8.3). Every table, chip and tag reads these
+ * tokens. Default = comfortable; `.density-dense` (the ledger's density toggle,
+ * applied to the whole page) = compact. Touch screens keep 44px rows.
+ */
+:root {
+	--row-h: 2.75rem; /* 44px rows */
+	--head-h: 2.5rem; /* 40px header row */
+	--group-h: 2rem; /* group rows in the two-tier table */
+	--cell-text: 15px; /* cell body */
+	--head-text: 13px; /* column headers */
+	--chip-text: 12px; /* status chips, asset tags, seals */
+	--meta-text: 13px; /* supplementary text in cells */
+}
+.density-dense {
+	--row-h: 2.25rem; /* 36px */
+	--head-h: 2.25rem;
+	--group-h: 1.75rem;
+	--cell-text: 14px;
+	--chip-text: 11px;
+	--meta-text: 12px;
+}
+@media (pointer: coarse) {
+	.density-dense {
+		--row-h: 2.75rem;
+	}
+}
+
+@layer base {
+	html {
+		background-color: var(--color-paper);
+	}
+	body {
+		background-color: var(--color-paper);
+		color: var(--color-ink);
+		font-family: var(--font-sans);
+	}
+	/* Native <dialog>: the component sets its own position and box. */
+	dialog {
+		margin: 0;
+		padding: 0;
+		max-width: none;
+		max-height: none;
+	}
+	dialog::backdrop {
+		background-color: rgb(28 25 23 / 0.4);
+	}
+}
+
+@layer components {
+	/* Select with the 16px down chevron on the right (DESIGN.md §8.6). */
+	.select-chevron {
+		appearance: none;
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2357534E' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+		background-repeat: no-repeat;
+		background-position: right 0.5rem center;
+		background-size: 16px 16px;
+	}
+}
+
+/* Motion (DESIGN.md §7): the four allowed animations only. */
+/* Rotation is left to the element (the large seal carries -rotate-6; Tailwind
+   v4 rotate utilities use the separate `rotate` property, so a rotate() in
+   this transform would double it). */
+@keyframes stamp-press {
+	0% {
+		transform: scale(1.15);
+		opacity: 0;
+	}
+	60% {
+		transform: scale(0.98);
+		opacity: 1;
+	}
+	100% {
+		transform: scale(1);
+		opacity: 1;
+	}
+}
+.stamp-press {
+	animation: stamp-press 160ms ease-out both;
+}
+
+/* Centring uses the `translate` property (Tailwind v4), so only scale here. */
+@keyframes dialog-in {
+	from {
+		opacity: 0;
+		transform: scale(0.98);
+	}
+	to {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
+.dialog-in[open] {
+	animation: dialog-in 160ms ease-out both;
+}
+
+@keyframes toast-in {
+	from {
+		opacity: 0;
+		transform: translateY(8px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+.toast-in {
+	animation: toast-in 160ms ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.stamp-press,
+	.dialog-in[open],
+	.toast-in {
+		animation: none;
+	}
+	.animate-pulse {
+		animation: none;
+	}
+}

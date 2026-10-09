@@ -1,0 +1,12 @@
+node_modules/
+build/
+.svelte-kit/
+.keelson/
+*.local
+local.db
+local.db-*
+.env
+.DS_Store
+.vitest/
+playwright-report/
+test-results/

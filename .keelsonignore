@@ -1,0 +1,11 @@
+# Deploy archive exclusions (the CLI does not read .gitignore).
+# node_modules/ build/ .git/ are excluded by the CLI itself.
+.svelte-kit/
+.keelson/
+local.db
+local.db-*
+*.local
+.env
+screenshots/
+playwright-report/
+test-results/

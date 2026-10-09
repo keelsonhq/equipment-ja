@@ -1,0 +1,62 @@
+{
+	"name": "keelson-equipment",
+	"version": "0.1.0",
+	"private": true,
+	"description": "Equipment ledger template app (issue, exchange, return) for Keelson.",
+	"type": "module",
+	"imports": {
+		"#lib": "./src/lib",
+		"#lib/*": "./src/lib/*"
+	},
+	"scripts": {
+		"dev": "node scripts/dev.mjs",
+		"build": "vp build",
+		"start": "node build/index.js",
+		"prepare": "svelte-kit sync || echo ''",
+		"lint": "vp lint",
+		"format": "vp fmt",
+		"test": "svelte-kit sync && vp test run",
+		"typecheck": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --threshold error",
+		"check": "svelte-kit sync && vp check && vp test run",
+		"e2e": "playwright test",
+		"e2e:install": "playwright install chromium"
+	},
+	"dependencies": {
+		"@keelsonhq/files": "0.1.0",
+		"@keelsonhq/identity": "0.2.1",
+		"@libsql/client": "0.18.0"
+	},
+	"devDependencies": {
+		"@lucide/svelte": "1.50.0",
+		"@playwright/test": "1.63.0",
+		"@sveltejs/adapter-node": "6.0.0",
+		"@sveltejs/kit": "3.0.0",
+		"@sveltejs/vite-plugin-svelte": "7.3.1",
+		"@tailwindcss/vite": "4.3.3",
+		"@types/node": "24.19.1",
+		"svelte": "5.57.1",
+		"svelte-check": "4.7.6",
+		"tailwindcss": "4.3.3",
+		"typescript": "6.0.3",
+		"vite": "npm:@voidzero-dev/vite-plus-core@1.0.0",
+		"vite-plus": "1.0.0",
+		"yaml": "2.9.1"
+	},
+	"overrides": {
+		"vite": "npm:@voidzero-dev/vite-plus-core@1.0.0"
+	},
+	"engines": {
+		"node": ">=24"
+	},
+	"packageManager": "pnpm@10.33.4",
+	"pnpm": {
+		"overrides": {
+			"vite@*": "npm:@voidzero-dev/vite-plus-core@1.0.0"
+		},
+		"peerDependencyRules": {
+			"allowAny": [
+				"vite"
+			]
+		}
+	}
+}

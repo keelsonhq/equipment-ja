@@ -1,0 +1,128 @@
+{
+	"former": [
+		{ "id": "sample-kobayashi", "name": "(サンプル)小林", "email": "kobayashi.sample@example.com" }
+	],
+	"assignments": [
+		{ "tag": "PC-0001", "user": "sample-sato", "place": "オフィス", "issuedDaysAgo": 410 },
+		{ "tag": "MS-0001", "user": "sample-sato", "place": "オフィス", "issuedDaysAgo": 410 },
+		{ "tag": "SC-0001", "user": "sample-sato", "place": "オフィス", "issuedDaysAgo": 410 },
+		{
+			"tag": "MB-0001",
+			"user": "sample-sato",
+			"place": "その他",
+			"issuedDaysAgo": 410,
+			"note": "営業外出用。"
+		},
+		{
+			"tag": "MN-0005",
+			"user": "sample-sato",
+			"place": "在宅",
+			"issuedDaysAgo": 200,
+			"note": "在宅勤務の申請に合わせて支給。"
+		},
+
+		{
+			"tag": "PC-0004",
+			"user": "sample-suzuki",
+			"place": "オフィス",
+			"issuedDaysAgo": 900,
+			"replacedByTag": "PC-0006"
+		},
+		{
+			"tag": "PC-0006",
+			"user": "sample-suzuki",
+			"place": "オフィス",
+			"issuedDaysAgo": 3,
+			"note": "PC-0004 の性能不足のため交換。旧PCはデータ移行後に返却予定。"
+		},
+		{ "tag": "SC-0002", "user": "sample-suzuki", "place": "オフィス", "issuedDaysAgo": 900 },
+		{ "tag": "KB-0001", "user": "sample-suzuki", "place": "在宅", "issuedDaysAgo": 300 },
+
+		{ "tag": "PC-0010", "user": "sample-takahashi", "place": "オフィス", "issuedDaysAgo": 380 },
+		{ "tag": "MN-0001", "user": "sample-takahashi", "place": "オフィス", "issuedDaysAgo": 380 },
+		{ "tag": "KB-0002", "user": "sample-takahashi", "place": "オフィス", "issuedDaysAgo": 380 },
+		{ "tag": "SC-0003", "user": "sample-takahashi", "place": "オフィス", "issuedDaysAgo": 380 },
+
+		{
+			"tag": "PC-0003",
+			"user": "sample-tanaka",
+			"place": "オフィス",
+			"issuedDaysAgo": 900,
+			"returnedDaysAgo": 250,
+			"returnKind": "returned",
+			"returnNote": "PC-0002 への入れ替えのため返却。"
+		},
+		{ "tag": "PC-0002", "user": "sample-tanaka", "place": "オフィス", "issuedDaysAgo": 250 },
+		{
+			"tag": "MS-0002",
+			"user": "sample-tanaka",
+			"place": "オフィス",
+			"issuedDaysAgo": 600,
+			"returnedDaysAgo": 90,
+			"returnKind": "collected",
+			"returnNote": "ホイールの反応が悪いため回収。点検後に保管。"
+		},
+		{ "tag": "SC-0004", "user": "sample-tanaka", "place": "オフィス", "issuedDaysAgo": 900 },
+
+		{
+			"tag": "PC-0011",
+			"user": "sample-ito",
+			"place": "その他",
+			"issuedDaysAgo": 20,
+			"dueDaysAgo": 6,
+			"note": "大阪出張の一時貸与。"
+		},
+		{ "tag": "SC-0005", "user": "sample-ito", "place": "オフィス", "issuedDaysAgo": 700 },
+		{ "tag": "MB-0002", "user": "sample-ito", "place": "その他", "issuedDaysAgo": 700 },
+
+		{ "tag": "PC-0005", "user": "sample-watanabe", "place": "在宅", "issuedDaysAgo": 280 },
+		{ "tag": "MN-0006", "user": "sample-watanabe", "place": "在宅", "issuedDaysAgo": 280 },
+		{ "tag": "MS-0003", "user": "sample-watanabe", "place": "在宅", "issuedDaysAgo": 280 },
+		{ "tag": "HS-0001", "user": "sample-watanabe", "place": "在宅", "issuedDaysAgo": 270 },
+		{ "tag": "SC-0006", "user": "sample-watanabe", "place": "オフィス", "issuedDaysAgo": 280 },
+
+		{ "tag": "PC-0007", "user": "sample-yamamoto", "place": "オフィス", "issuedDaysAgo": 500 },
+		{ "tag": "SC-0007", "user": "sample-yamamoto", "place": "オフィス", "issuedDaysAgo": 500 },
+		{ "tag": "MB-0003", "user": "sample-yamamoto", "place": "その他", "issuedDaysAgo": 400 },
+
+		{
+			"tag": "PC-0012",
+			"user": "sample-nakamura",
+			"place": "オフィス",
+			"issuedDaysAgo": 150,
+			"note": "大阪営業所に配属。"
+		},
+		{ "tag": "SC-0008", "user": "sample-nakamura", "place": "オフィス", "issuedDaysAgo": 150 },
+		{ "tag": "MS-0004", "user": "sample-nakamura", "place": "オフィス", "issuedDaysAgo": 150 },
+
+		{ "tag": "MB-0004", "user": "sample-yamaguchi", "place": "その他", "issuedDaysAgo": 560 },
+
+		{
+			"tag": "PC-0008",
+			"user": "sample-kobayashi",
+			"place": "オフィス",
+			"issuedDaysAgo": 700,
+			"returnedDaysAgo": 120,
+			"returnKind": "collected",
+			"returnNote": "退職に伴い回収。"
+		},
+		{
+			"tag": "SC-0009",
+			"user": "sample-kobayashi",
+			"place": "オフィス",
+			"issuedDaysAgo": 700,
+			"returnedDaysAgo": 120,
+			"returnKind": "collected",
+			"returnNote": "退職に伴い回収。"
+		},
+		{
+			"tag": "MB-0005",
+			"user": "sample-kobayashi",
+			"place": "その他",
+			"issuedDaysAgo": 700,
+			"returnedDaysAgo": 120,
+			"returnKind": "collected",
+			"returnNote": "退職に伴い回収。初期化済み。"
+		}
+	]
+}

@@ -1,0 +1,325 @@
+slug: equipment
+description: '社員に支給するPC・社用携帯・セキュリティカードなどの台帳。誰が何を持っているかを社員ごとに見渡し、支給・交換・返却・回収を記録します。'
+runtime: node-slim
+# SvelteKit (adapter-node) server built by `npm run build` at deploy time.
+command: 'node build/index.js'
+
+# Managed libSQL. The platform injects KEELSON_DB_URL / KEELSON_DB_AUTH_TOKEN.
+# `migrate` runs once per deploy, in the new image, before traffic moves to the
+# new revision; a failure fails the deploy and the old revision keeps serving.
+db:
+  mode: libsql
+  migrate: 'node scripts/migrate.mjs'
+
+env:
+  # Attachments are up to 10 MiB each; the Node adapter's default request body
+  # limit is 512K.
+  BODY_SIZE_LIMIT: '11M'
+
+# No secrets are required. The employee list comes from the workspace
+# directory: run `keelson apps directory enable` and redeploy (README).
+
+# AI assistants (Claude, ChatGPT, ...) connect to https://<app URL>/mcp. The
+# platform gateway handles MCP and sign-in, checks the arguments against each
+# `input` schema and calls POST /api/mcp/<name>. The tools are implemented in
+# src/lib/server/mcp/ (registry.ts must list the same names; tests check it).
+mcp:
+  enabled: true
+  instructions: |-
+    社員に支給する PC・社用携帯などの台帳(備品管理)です。
+    物品は管理番号(asset_tag。例: PC-0101)で指定します。分からなければ find_items(管理者)か find_available_items で探します。物品は 1 回に 1 件ずつ扱います。
+    人は person に名前かメールを渡します(敬称なし)。複数の人に当てはまると fields が ambiguous になり candidates に候補が返るので、利用者に確かめてから、選んだ人のメールか id で呼び直してください。
+    日付は YYYY-MM-DD。支給日・返却日を省くと今日で、未来の日付は不可です。種類・使用場所は名前で渡します(一覧は list_masters。使用場所を省くと先頭)。
+    「管理者のみ」のツールは管理権限が要ります(無ければ forbidden_manage_required)。一般の利用者は自分の物品の確認・返却と、空いている物品を自分に割り当てることだけができます。
+    エラーは {"error": コード}。validation_failed の fields は「引数名: 理由」です(例: required、invalid_date、taken=登録済み、not_found、future=未来の日付、before_issued=支給日より前)。種類・使用場所の not_found は choices に有効な名前が入ります。item_already_assigned=支給中、item_suspended=利用停止中、item_not_assigned=支給中でない、assignment_not_owned=他人の物品。
+    一覧は既定 20 件・最大 50 件。truncated が true なら全 total 件の一部なので条件を絞ってください。
+  tools:
+    - name: find_items
+      description: '台帳から物品を探す(管理者のみ)。キーワード・状態・種類・支給先で絞り込み、管理番号順に返す。各行は管理番号・物品名・種類・状態・支給先・支給日・返却予定日・保管場所。在庫や「誰が何を持っているか」を調べるときに使う。例: 「使っていない Windows のノート PC はある?」→ q: "Windows", status: ["unassigned"], type: "ノートPC"。「返却期限を過ぎている物品は?」→ status: ["overdue"]'
+      access: read
+      permission: manage
+      input:
+        type: object
+        additionalProperties: false
+        properties:
+          q:
+            type: string
+            maxLength: 100
+            description: 'キーワード。管理番号・物品名・製造番号・備考・支給先の名前に部分一致'
+          status:
+            type: array
+            items:
+              type: string
+              enum: [unassigned, assigned, pending_return, overdue, suspended]
+            description: '状態(どれかに当てはまる物品)。unassigned = 未割当(誰も使っておらず利用停止でもない)、assigned = 支給中、pending_return = 返却待ち(交換で返す予定)、overdue = 返却期限超過、suspended = 利用停止'
+          type:
+            type: string
+            maxLength: 40
+            description: '種類の名前(例: ノートPC)。list_masters の types'
+          holder:
+            type: string
+            maxLength: 200
+            description: '支給先の人(名前かメールアドレス)。メンバーから外れた人も記録があれば指定できる'
+          limit:
+            type: integer
+            minimum: 1
+            maximum: 50
+            description: '返す件数の上限(既定 20、最大 50)'
+        required: []
+    - name: find_available_items
+      description: '空いている物品(誰にも支給されておらず、利用停止でもない)を探す。一般の利用者も使える。自分に割り当てる前に、使える物品を確かめるときに使う。検索は管理番号・物品名・種類だけ。例: 「空いているモニターはある?」→ type: "モニター"'
+      access: read
+      permission: view
+      input:
+        type: object
+        additionalProperties: false
+        properties:
+          q:
+            type: string
+            maxLength: 100
+            description: 'キーワード。管理番号・物品名・種類に部分一致'
+          type:
+            type: string
+            maxLength: 40
+            description: '種類の名前(例: モニター)。list_masters の types'
+          limit:
+            type: integer
+            minimum: 1
+            maximum: 50
+            description: '返す件数の上限(既定 20、最大 50)'
+        required: []
+    - name: get_item
+      description: '管理番号で物品 1 件の詳細を見る(管理者のみ)。物品の項目・状態・今の支給先と、直近の割当 5 件。例: 「PC-0101 は今だれが持っている?」「PC-0101 の購入日は?」'
+      access: read
+      permission: manage
+      input:
+        type: object
+        additionalProperties: false
+        properties:
+          asset_tag:
+            type: string
+            maxLength: 40
+            description: '管理番号(例: PC-0101)'
+        required: [asset_tag]
+    - name: my_items
+      description: '自分(この会話の利用者)が今持っている物品(支給中・返却待ち)の一覧。一般の利用者も使える。例: 「私が今持っている物品は?」'
+      access: read
+      permission: view
+      input:
+        type: object
+        additionalProperties: false
+        properties: {}
+        required: []
+    - name: member_items
+      description: 'ある社員が今持っている物品(支給中・返却待ち)の一覧(管理者のみ)。メンバーから外れた人も記録があれば引ける。例: 「鈴木さんが持っている物品は?」→ person: "鈴木"'
+      access: read
+      permission: manage
+      input:
+        type: object
+        additionalProperties: false
+        properties:
+          person:
+            type: string
+            maxLength: 200
+            description: '社員の名前かメールアドレス(敬称は付けない)。候補の id でもよい'
+        required: [person]
+    - name: list_masters
+      description: '物品の種類と使用場所(オフィス・在宅など)の、いま使える名前の一覧。type / place に渡す値を確かめるときに使う。places の先頭が使用場所の既定値'
+      access: read
+      permission: view
+      input:
+        type: object
+        additionalProperties: false
+        properties: {}
+        required: []
+    - name: register_item
+      description: '物品を 1 件登録する(管理者のみ)。assign_to を付けると、登録と同時にその人へ支給する(どちらかが失敗したら何も残らない)。複数台は 1 台ずつ呼ぶ。例: 「モニター EV2480 を 2 台登録して(管理番号 MN-0031 と MN-0032)」→ asset_tag: "MN-0031", name: "EV2480", type: "モニター" で 1 回、asset_tag: "MN-0032" でもう 1 回'
+      access: write
+      permission: manage
+      input:
+        type: object
+        additionalProperties: false
+        properties:
+          asset_tag:
+            type: string
+            maxLength: 40
+            description: '管理番号(社内の番号。一意。例: PC-0101)'
+          name:
+            type: string
+            maxLength: 120
+            description: '物品名(例: ノートPC 14型 / 32GB)'
+          type:
+            type: string
+            maxLength: 40
+            description: '種類の名前(例: ノートPC)。list_masters の types'
+          serial_no:
+            type: string
+            maxLength: 80
+            description: '製造番号'
+          purchased_on:
+            type: string
+            format: date
+            description: '購入日(YYYY-MM-DD)'
+          storage_location:
+            type: string
+            maxLength: 80
+            description: '保管場所(未割当のときに置く場所。例: 本社 3F 備品庫)'
+          note:
+            type: string
+            maxLength: 2000
+            description: '備考'
+          assign_to:
+            type: object
+            additionalProperties: false
+            description: '登録と同時に支給するときだけ付ける'
+            properties:
+              person:
+                type: string
+                maxLength: 200
+                description: '支給先の社員(名前かメールアドレス。敬称は付けない)'
+              place:
+                type: string
+                maxLength: 40
+                description: '使用場所の名前(例: オフィス、在宅)。省くと list_masters の places の先頭'
+              issued_on:
+                type: string
+                format: date
+                description: '支給日(YYYY-MM-DD)。省くと今日'
+              due_on:
+                type: string
+                format: date
+                description: '返却予定日(YYYY-MM-DD)。無ければ省く'
+              note:
+                type: string
+                maxLength: 500
+                description: '支給の備考'
+            required: [person]
+        required: [asset_tag, name]
+    - name: issue_item
+      description: '物品を社員に支給する(管理者のみ)。支給できるのは、誰にも支給されておらず利用停止でもない物品だけ。exchange_for に交換元の管理番号を渡すと交換になり、交換元はその人の手元で「返却待ち」になる(実際の返却は return_item で記録)。例: 「PC-0101 を山田さんに今日から支給して」→ asset_tag: "PC-0101", person: "山田"'
+      access: write
+      permission: manage
+      input:
+        type: object
+        additionalProperties: false
+        properties:
+          asset_tag:
+            type: string
+            maxLength: 40
+            description: '支給する物品の管理番号'
+          person:
+            type: string
+            maxLength: 200
+            description: '支給先の社員(名前かメールアドレス。敬称は付けない)。候補の id でもよい'
+          place:
+            type: string
+            maxLength: 40
+            description: '使用場所の名前(例: オフィス、在宅)。省くと list_masters の places の先頭'
+          issued_on:
+            type: string
+            format: date
+            description: '支給日(YYYY-MM-DD)。省くと今日。未来の日付は不可'
+          due_on:
+            type: string
+            format: date
+            description: '返却予定日(YYYY-MM-DD)。無ければ省く'
+          note:
+            type: string
+            maxLength: 500
+            description: '支給の備考'
+          exchange_for:
+            type: string
+            maxLength: 40
+            description: '交換のとき、その人が今持っている交換元の物品の管理番号'
+        required: [asset_tag, person]
+    - name: take_item
+      description: '空いている物品を自分(この会話の利用者)に割り当てる。一般の利用者も使える。find_available_items で空いている物品を確かめてから使う。他の人に支給するときは issue_item。例: 「MS-0012 のマウスを今日から使います」→ asset_tag: "MS-0012"'
+      access: write
+      permission: view
+      input:
+        type: object
+        additionalProperties: false
+        properties:
+          asset_tag:
+            type: string
+            maxLength: 40
+            description: '割り当てる物品の管理番号'
+          place:
+            type: string
+            maxLength: 40
+            description: '使用場所の名前(例: オフィス、在宅)。省くと list_masters の places の先頭'
+          issued_on:
+            type: string
+            format: date
+            description: '使い始める日(YYYY-MM-DD)。省くと今日'
+          due_on:
+            type: string
+            format: date
+            description: '返却予定日(YYYY-MM-DD)。無ければ省く'
+          note:
+            type: string
+            maxLength: 500
+            description: '備考'
+        required: [asset_tag]
+    - name: return_item
+      description: '物品の返却を記録する。本人は自分の物品だけ、管理者は誰の物品でも記録できる(他人の分は「回収」として残る)。storage_location と needs_repair は管理者だけが使える。例: 「PC-0101 を返却したことにして」→ asset_tag: "PC-0101"'
+      access: write
+      permission: view
+      input:
+        type: object
+        additionalProperties: false
+        properties:
+          asset_tag:
+            type: string
+            maxLength: 40
+            description: '返却する物品の管理番号'
+          returned_on:
+            type: string
+            format: date
+            description: '返却日(YYYY-MM-DD)。省くと今日。未来の日付と支給日より前は不可'
+          note:
+            type: string
+            maxLength: 500
+            description: '返却の備考'
+          storage_location:
+            type: string
+            maxLength: 80
+            description: '返却後の保管場所(管理者のみ)'
+          needs_repair:
+            type: boolean
+            description: 'true なら返却と同時に「修理中」で利用停止にする(管理者のみ)'
+        required: [asset_tag]
+    - name: suspend_item
+      description: '物品を利用停止にする(管理者のみ)。修理中・故障・紛失など。支給中でも割当は残り、返却は記録できる。利用停止中は支給できない。例: 「PC-0101 が故障したので使えないようにして」→ reason: "broken"'
+      access: write
+      permission: manage
+      input:
+        type: object
+        additionalProperties: false
+        properties:
+          asset_tag:
+            type: string
+            maxLength: 40
+            description: '利用停止にする物品の管理番号'
+          reason:
+            type: string
+            enum: [repair, broken, lost, other]
+            description: '理由。repair = 修理中、broken = 故障、lost = 紛失、other = その他'
+          detail:
+            type: string
+            maxLength: 500
+            description: '詳細(例: 画面が映らない)'
+        required: [asset_tag, reason]
+    - name: resume_item
+      description: '利用停止を解除して、また支給できるようにする(管理者のみ)。例: 「PC-0101 の修理が終わったので使えるようにして」'
+      access: write
+      permission: manage
+      input:
+        type: object
+        additionalProperties: false
+        properties:
+          asset_tag:
+            type: string
+            maxLength: 40
+            description: '利用を再開する物品の管理番号'
+        required: [asset_tag]

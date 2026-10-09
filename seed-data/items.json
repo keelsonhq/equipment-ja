@@ -1,0 +1,408 @@
+{
+	"admin": { "id": "sample-yamaguchi", "name": "(サンプル)山口" },
+	"items": [
+		{
+			"tag": "PC-0001",
+			"name": "ノートPC 14型 Core Ultra 7 / 32GB",
+			"type": "ノートPC",
+			"serial": "5CG4-1102-JP",
+			"purchasedDaysAgo": 620,
+			"storage": "本社 3F 備品庫"
+		},
+		{
+			"tag": "PC-0002",
+			"name": "ノートPC 14型 Core Ultra 7 / 32GB",
+			"type": "ノートPC",
+			"serial": "5CG4-1103-JP",
+			"purchasedDaysAgo": 620,
+			"storage": "本社 3F 備品庫"
+		},
+		{
+			"tag": "PC-0003",
+			"name": "ノートPC 14型 Core Ultra 5 / 16GB",
+			"type": "ノートPC",
+			"serial": "5CG3-0871-JP",
+			"purchasedDaysAgo": 940,
+			"storage": "本社 3F 備品庫",
+			"note": "初期化済み。次の入社者向けに保管。"
+		},
+		{
+			"tag": "PC-0004",
+			"name": "ノートPC 13型 Core i5 / 16GB(旧型)",
+			"type": "ノートPC",
+			"serial": "4XK2-7730-JP",
+			"purchasedDaysAgo": 1480,
+			"storage": "本社 3F 備品庫",
+			"note": "リース満了 2026 年 12 月。"
+		},
+		{
+			"tag": "PC-0005",
+			"name": "ノートPC 16型 Core Ultra 9 / 64GB(開発用)",
+			"type": "ノートPC",
+			"serial": "9DV1-0045-JP",
+			"purchasedDaysAgo": 300,
+			"storage": "本社 3F 備品庫"
+		},
+		{
+			"tag": "PC-0006",
+			"name": "ノートPC 16型 Core Ultra 9 / 64GB(開発用)",
+			"type": "ノートPC",
+			"serial": "9DV1-0046-JP",
+			"purchasedDaysAgo": 30,
+			"storage": "本社 3F 備品庫"
+		},
+		{
+			"tag": "PC-0007",
+			"name": "ノートPC 14型 Core Ultra 5 / 16GB",
+			"type": "ノートPC",
+			"serial": "5CG3-0872-JP",
+			"purchasedDaysAgo": 940,
+			"storage": "本社 3F 備品庫"
+		},
+		{
+			"tag": "PC-0008",
+			"name": "ノートPC 14型 Core Ultra 5 / 16GB",
+			"type": "ノートPC",
+			"serial": "5CG3-0873-JP",
+			"purchasedDaysAgo": 940,
+			"storage": "本社 3F 備品庫",
+			"note": "返却後に初期化済み。"
+		},
+		{
+			"tag": "PC-0009",
+			"name": "ノートPC 13型 Core i5 / 16GB(旧型)",
+			"type": "ノートPC",
+			"serial": "4XK2-7731-JP",
+			"purchasedDaysAgo": 1480,
+			"storage": "本社 3F 総務キャビネット",
+			"suspend": {
+				"reason": "repair",
+				"note": "一部のキーが反応しない。メーカー修理に出している。",
+				"daysAgo": 14
+			}
+		},
+		{
+			"tag": "PC-0010",
+			"name": "ノートPC 14型 Core Ultra 7 / 32GB",
+			"type": "ノートPC",
+			"serial": "5CG4-1104-JP",
+			"purchasedDaysAgo": 620,
+			"storage": "本社 3F 備品庫"
+		},
+		{
+			"tag": "PC-0011",
+			"name": "貸出用ノートPC 14型 Core Ultra 5 / 16GB",
+			"type": "ノートPC",
+			"serial": "5CG3-0874-JP",
+			"purchasedDaysAgo": 940,
+			"storage": "本社 3F 総務キャビネット",
+			"note": "出張・一時利用の貸出用。返却予定日を設定して支給する。"
+		},
+		{
+			"tag": "PC-0012",
+			"name": "ノートPC 14型 Core Ultra 7 / 32GB",
+			"type": "ノートPC",
+			"serial": "5CG4-1105-JP",
+			"purchasedDaysAgo": 400,
+			"storage": "大阪営業所 備品棚"
+		},
+		{
+			"tag": "MS-0001",
+			"name": "ワイヤレスマウス(静音)",
+			"type": "マウス",
+			"serial": "2231LZ0A11",
+			"purchasedDaysAgo": 620,
+			"storage": "本社 3F 備品庫"
+		},
+		{
+			"tag": "MS-0002",
+			"name": "ワイヤレスマウス(静音)",
+			"type": "マウス",
+			"serial": "2231LZ0A12",
+			"purchasedDaysAgo": 620,
+			"storage": "本社 3F 備品庫"
+		},
+		{
+			"tag": "MS-0003",
+			"name": "エルゴノミクスマウス",
+			"type": "マウス",
+			"serial": "2310ER0B07",
+			"purchasedDaysAgo": 300,
+			"storage": "本社 3F 備品庫"
+		},
+		{
+			"tag": "MS-0004",
+			"name": "ワイヤレスマウス(静音)",
+			"type": "マウス",
+			"serial": "2231LZ0A13",
+			"purchasedDaysAgo": 620,
+			"storage": "大阪営業所 備品棚"
+		},
+		{
+			"tag": "MS-0005",
+			"name": "ワイヤレスマウス(静音)",
+			"type": "マウス",
+			"serial": "2231LZ0A14",
+			"purchasedDaysAgo": 620,
+			"storage": "本社 3F 備品庫"
+		},
+		{
+			"tag": "MS-0006",
+			"name": "有線マウス",
+			"type": "マウス",
+			"purchasedDaysAgo": 1100,
+			"storage": "本社 3F 備品庫"
+		},
+		{
+			"tag": "MS-0007",
+			"name": "エルゴノミクスマウス",
+			"type": "マウス",
+			"serial": "2310ER0B08",
+			"purchasedDaysAgo": 300,
+			"storage": "本社 3F 備品庫"
+		},
+		{
+			"tag": "KB-0001",
+			"name": "テンキー付きワイヤレスキーボード",
+			"type": "キーボード",
+			"serial": "KB24-008812",
+			"purchasedDaysAgo": 500,
+			"storage": "本社 3F 備品庫"
+		},
+		{
+			"tag": "KB-0002",
+			"name": "コンパクトキーボード(英字配列)",
+			"type": "キーボード",
+			"serial": "CK23-110405",
+			"purchasedDaysAgo": 700,
+			"storage": "本社 3F 備品庫"
+		},
+		{
+			"tag": "KB-0003",
+			"name": "テンキー付きワイヤレスキーボード",
+			"type": "キーボード",
+			"serial": "KB24-008813",
+			"purchasedDaysAgo": 500,
+			"storage": "本社 3F 備品庫"
+		},
+		{
+			"tag": "KB-0004",
+			"name": "コンパクトキーボード(日本語配列)",
+			"type": "キーボード",
+			"serial": "CK23-110871",
+			"purchasedDaysAgo": 700,
+			"storage": "本社 3F 備品庫"
+		},
+		{
+			"tag": "MN-0001",
+			"name": "27型 4K モニター(オフィス用)",
+			"type": "モニター",
+			"serial": "M27U-3A0091",
+			"purchasedDaysAgo": 800,
+			"storage": "本社 3F 備品庫"
+		},
+		{
+			"tag": "MN-0002",
+			"name": "27型 4K モニター(オフィス用)",
+			"type": "モニター",
+			"serial": "M27U-3A0092",
+			"purchasedDaysAgo": 800,
+			"storage": "本社 3F 備品庫"
+		},
+		{
+			"tag": "MN-0003",
+			"name": "27型 4K モニター(オフィス用)",
+			"type": "モニター",
+			"serial": "M27U-3A0093",
+			"purchasedDaysAgo": 800,
+			"storage": "本社 3F 備品庫"
+		},
+		{
+			"tag": "MN-0004",
+			"name": "24型 フルHD モニター(在宅用)",
+			"type": "モニター",
+			"serial": "M24F-1B0412",
+			"purchasedDaysAgo": 450,
+			"storage": "本社 3F 備品庫"
+		},
+		{
+			"tag": "MN-0005",
+			"name": "24型 フルHD モニター(在宅用)",
+			"type": "モニター",
+			"serial": "M24F-1B0413",
+			"purchasedDaysAgo": 450,
+			"storage": "本社 3F 備品庫"
+		},
+		{
+			"tag": "MN-0006",
+			"name": "24型 フルHD モニター(在宅用)",
+			"type": "モニター",
+			"serial": "M24F-1B0414",
+			"purchasedDaysAgo": 450,
+			"storage": "本社 3F 備品庫"
+		},
+		{
+			"tag": "SC-0001",
+			"name": "入館用セキュリティカード",
+			"type": "セキュリティカード",
+			"serial": "IC-204811",
+			"purchasedDaysAgo": 1200,
+			"storage": "本社 3F 総務キャビネット"
+		},
+		{
+			"tag": "SC-0002",
+			"name": "入館用セキュリティカード",
+			"type": "セキュリティカード",
+			"serial": "IC-204812",
+			"purchasedDaysAgo": 1200,
+			"storage": "本社 3F 総務キャビネット"
+		},
+		{
+			"tag": "SC-0003",
+			"name": "入館用セキュリティカード",
+			"type": "セキュリティカード",
+			"serial": "IC-204813",
+			"purchasedDaysAgo": 1200,
+			"storage": "本社 3F 総務キャビネット"
+		},
+		{
+			"tag": "SC-0004",
+			"name": "入館用セキュリティカード",
+			"type": "セキュリティカード",
+			"serial": "IC-204814",
+			"purchasedDaysAgo": 1200,
+			"storage": "本社 3F 総務キャビネット"
+		},
+		{
+			"tag": "SC-0005",
+			"name": "入館用セキュリティカード",
+			"type": "セキュリティカード",
+			"serial": "IC-204815",
+			"purchasedDaysAgo": 1200,
+			"storage": "本社 3F 総務キャビネット"
+		},
+		{
+			"tag": "SC-0006",
+			"name": "入館用セキュリティカード",
+			"type": "セキュリティカード",
+			"serial": "IC-204816",
+			"purchasedDaysAgo": 1200,
+			"storage": "本社 3F 総務キャビネット"
+		},
+		{
+			"tag": "SC-0007",
+			"name": "入館用セキュリティカード",
+			"type": "セキュリティカード",
+			"serial": "IC-204817",
+			"purchasedDaysAgo": 1200,
+			"storage": "本社 3F 総務キャビネット"
+		},
+		{
+			"tag": "SC-0008",
+			"name": "入館用セキュリティカード",
+			"type": "セキュリティカード",
+			"serial": "IC-204818",
+			"purchasedDaysAgo": 1200,
+			"storage": "本社 3F 総務キャビネット",
+			"suspend": {
+				"reason": "lost",
+				"note": "紛失届を提出済み。カードは無効化し、再発行を手配中。",
+				"daysAgo": 5
+			}
+		},
+		{
+			"tag": "SC-0009",
+			"name": "入館用セキュリティカード",
+			"type": "セキュリティカード",
+			"serial": "IC-204819",
+			"purchasedDaysAgo": 1200,
+			"storage": "本社 3F 総務キャビネット"
+		},
+		{
+			"tag": "SC-0010",
+			"name": "入館用セキュリティカード(来客・予備)",
+			"type": "セキュリティカード",
+			"serial": "IC-204820",
+			"purchasedDaysAgo": 1200,
+			"storage": "本社 3F 総務キャビネット"
+		},
+		{
+			"tag": "MB-0001",
+			"name": "社用スマートフォン 6.1型",
+			"type": "社用携帯",
+			"serial": "356938110245871",
+			"purchasedDaysAgo": 560,
+			"storage": "本社 3F 総務キャビネット",
+			"note": "端末管理に登録済み。"
+		},
+		{
+			"tag": "MB-0002",
+			"name": "社用スマートフォン 6.1型",
+			"type": "社用携帯",
+			"serial": "356938110245872",
+			"purchasedDaysAgo": 560,
+			"storage": "本社 3F 総務キャビネット",
+			"note": "端末管理に登録済み。"
+		},
+		{
+			"tag": "MB-0003",
+			"name": "社用スマートフォン 6.7型",
+			"type": "社用携帯",
+			"serial": "356938110312004",
+			"purchasedDaysAgo": 420,
+			"storage": "本社 3F 総務キャビネット",
+			"note": "端末管理に登録済み。"
+		},
+		{
+			"tag": "MB-0004",
+			"name": "社用スマートフォン 6.1型",
+			"type": "社用携帯",
+			"serial": "356938110245873",
+			"purchasedDaysAgo": 560,
+			"storage": "本社 3F 総務キャビネット",
+			"note": "端末管理に登録済み。"
+		},
+		{
+			"tag": "MB-0005",
+			"name": "社用スマートフォン 6.1型",
+			"type": "社用携帯",
+			"serial": "356938110245874",
+			"purchasedDaysAgo": 560,
+			"storage": "本社 3F 総務キャビネット",
+			"note": "初期化済み。"
+		},
+		{
+			"tag": "MB-0006",
+			"name": "社用スマートフォン 6.1型",
+			"type": "社用携帯",
+			"serial": "356938110245875",
+			"purchasedDaysAgo": 560,
+			"storage": "本社 3F 総務キャビネット",
+			"suspend": { "reason": "broken", "note": "画面割れ。修理見積もり待ち。", "daysAgo": 40 }
+		},
+		{
+			"tag": "HS-0001",
+			"name": "ノイズキャンセリングヘッドセット",
+			"type": "ヘッドセット",
+			"serial": "HS5-77120",
+			"purchasedDaysAgo": 280,
+			"storage": "本社 3F 備品庫"
+		},
+		{
+			"tag": "HS-0002",
+			"name": "ノイズキャンセリングヘッドセット",
+			"type": "ヘッドセット",
+			"serial": "HS5-77121",
+			"purchasedDaysAgo": 280,
+			"storage": "本社 3F 備品庫"
+		},
+		{
+			"tag": "HS-0003",
+			"name": "ノイズキャンセリングヘッドセット",
+			"type": "ヘッドセット",
+			"serial": "HS5-77122",
+			"purchasedDaysAgo": 280,
+			"storage": "本社 3F 備品庫"
+		}
+	]
+}

@@ -1,0 +1,14 @@
+{
+	"extends": "$app/tsconfig",
+	"compilerOptions": {
+		"types": ["$app/types", "node"],
+		"strict": true,
+		"checkJs": false,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noFallthroughCasesInSwitch": true,
+		"sourceMap": true
+	},
+	"include": ["src", "tests", "e2e", "scripts", "*.ts"],
+	"exclude": ["src/service-worker"]
+}

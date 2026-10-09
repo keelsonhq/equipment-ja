@@ -1,0 +1,58 @@
+{
+	"users": [
+		{
+			"id": "sample-yamaguchi",
+			"email": "yamaguchi.sample@example.com",
+			"name": "(サンプル)山口",
+			"perms": ["view", "manage"]
+		},
+		{
+			"id": "sample-sato",
+			"email": "sato.sample@example.com",
+			"name": "(サンプル)佐藤",
+			"perms": ["view"]
+		},
+		{
+			"id": "sample-suzuki",
+			"email": "suzuki.sample@example.com",
+			"name": "(サンプル)鈴木",
+			"perms": ["view"]
+		},
+		{
+			"id": "sample-takahashi",
+			"email": "takahashi.sample@example.com",
+			"name": "(サンプル)高橋",
+			"perms": ["view"]
+		},
+		{
+			"id": "sample-tanaka",
+			"email": "tanaka.sample@example.com",
+			"name": "(サンプル)田中",
+			"perms": ["view"]
+		},
+		{
+			"id": "sample-ito",
+			"email": "ito.sample@example.com",
+			"name": "(サンプル)伊藤",
+			"perms": ["view"]
+		},
+		{
+			"id": "sample-watanabe",
+			"email": "watanabe.sample@example.com",
+			"name": "(サンプル)渡辺",
+			"perms": ["view"]
+		},
+		{
+			"id": "sample-yamamoto",
+			"email": "yamamoto.sample@example.com",
+			"name": "(サンプル)山本",
+			"perms": ["view"]
+		},
+		{
+			"id": "sample-nakamura",
+			"email": "nakamura.sample@example.com",
+			"name": "(サンプル)中村",
+			"perms": ["view"]
+		}
+	]
+}
