@@ -83,6 +83,7 @@ keelson.yaml             デプロイの設定と、AI アシスタントのツ�
 .keelsonignore           デプロイのアーカイブから除くもの(デプロイの CLI は .gitignore を読まない)
 static/                  favicon.svg(文字を含まない図柄)
 screenshots/             紹介ページ用の画面写真の置き場所(撮り方は screenshots/README.md)
+CHANGELOG.md             版ごとの変更(新しい版を公開するときに追記する)
 ```
 
 ## コマンド

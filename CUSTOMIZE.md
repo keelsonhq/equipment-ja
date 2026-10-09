@@ -294,3 +294,18 @@ AI アシスタント(Claude・ChatGPT など)から使うツールは、**2 か
 
 ローカルでは `pnpm dev` を起動して、`curl -s -X POST localhost:5173/api/mcp/<ツール名> -H 'content-type: application/json' -d '{...}'`
 で試せます。宣言の変更が AI アシスタントに届くのは再デプロイの後です(AI アシスタントによっては、接続し直すまで前の一覧を使います)。
+
+---
+
+## 10. Keelson 以外で動かす
+
+このアプリは Keelson で動かすことを前提に作っていますが、Keelson でしか動かないわけではありません。
+中身はふつうの SvelteKit(Node.js)アプリで、`pnpm build` と `pnpm start` で起動できます。
+
+Keelson が受け持っているのは次の 2 つです。ほかの環境で運用するときは、自社の仕組みにつなぎ替えてください。
+
+- **ログイン** — Keelson のゲートウェイがログインを済ませ、利用者を `X-Keelson-User-*` ヘッダでアプリに渡しています
+  ([`src/lib/server/auth/`](./src/lib/server/auth/))。アプリはこのヘッダをそのまま信頼し、ヘッダが無いと API は 401 を返します
+- **社員の一覧** — Keelson の Directory API から読んでいます([`src/lib/server/domain/directory.ts`](./src/lib/server/domain/directory.ts))
+
+データベース(設定が無ければローカルのファイル)と添付(設定が無ければローカルのフォルダ)は、そのままでも動きます。
